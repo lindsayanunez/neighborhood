@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import locations from '.data/loctions.json';
+import locations from './data/locations.json';
 import DisplayMap from './components/DisplayMap';
 
 class App extends Component {
