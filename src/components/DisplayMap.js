@@ -13,7 +13,15 @@ class DisplayMap extends Component {
   }
 
   return (
-      <Map></Map>
+      <Map
+        role='application'
+        aria-label='map'
+        onReady={this.mapReady}
+        google={this.props.google}
+        zoom={this.props.zoom}
+        style={style}
+        initialCenter={center}
+        onClick={this.closeInfoWindow}></Map>
     )
   }
 }
