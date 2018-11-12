@@ -1,0 +1,103 @@
+[
+  {
+    "name" : "L&B Spumoni Gardens",
+    "street":"2725 86th St",
+    "city": "Brooklyn",
+    "state": "NY",
+    "zip": "11223",
+    "url": "http://www.spumonigardens.com/",
+    "pos": {"lat":40.594711 , "lng":-73.981339}
+
+  },
+    {
+    "name" : "",
+    "street":"",
+    "city": "Brooklyn",
+    "state": "NY",
+    "zip": "",
+    "url": "",
+    "pos": {"lat": , "lng":}
+
+  },
+    {
+    "name" : "Juliana's",
+    "street":"19 Old Fulton St",
+    "city": "Brooklyn",
+    "state": "NY",
+    "zip": "11201",
+    "url": "http://www.julianaspizza.com/",
+    "pos": {"lat":40.702770, "lng":-73.993420}
+
+  },
+
+    {
+    "name" : "Paulie Gee's",
+    "street":"60 Greenpoint Ave",
+    "city": "Brooklyn",
+    "state": "NY",
+    "zip": "11222",
+    "url": "http://www.pauliegee.com/",
+    "pos": {"lat": 40.729540, "lng":-73.958570}
+
+  },
+    {
+    "name" : "Lucali",
+    "street":"575 Henry St",
+    "city": "Brooklyn",
+    "state": "NY",
+    "zip": "11231",
+    "url": "https://www.lucalibrooklyn.com/",
+    "pos": {"lat":40.681800 , "lng":-74.000230}
+
+  },
+    {
+    "name" : "Roberta's",
+    "street":"261 Moore St",
+    "city": "Brooklyn",
+    "state": "NY",
+    "zip": "11206",
+    "url": "http://www.robertaspizza.com/",
+    "pos": {"lat":40.705040 , "lng":-73.933560}
+
+  },
+    {
+    "name" : "Barbonchino Pizza",
+    "street":"781 Franklin Ave,",
+    "city": "Brooklyn",
+    "state": "NY",
+    "zip": "11238",
+    "url": "http://www.barboncinopizza.com/",
+    "pos": {"lat": 40.672070, "lng": -73.957176}
+
+  },
+    {
+    "name" : "Speedy Romeo",
+    "street":"376 Classon Ave",
+    "city": "Brooklyn",
+    "state": "NY",
+    "zip": "11238",
+    "url": "http://speedyromeo.com/",
+    "pos": {"lat":40.687500, "lng":-73.960080}
+
+  },
+    {
+    "name" : "Grimaldi's Pizza",
+    "street":"1 Front St",
+    "city": "Brooklyn",
+    "state": "NY",
+    "zip": "11201",
+    "url": "http://www.grimaldis-pizza.com/locations",
+    "pos": {"lat":40.702630, "lng":-73.993240}
+
+  },
+    {
+    "name" : "Best Pizza",
+    "street":"33 Havemeyer St",
+    "city": "Brooklyn",
+    "state": "NY",
+    "zip": "11211",
+    "url": "https://www.bestpizzaofbrooklyn.com/",
+    "pos": {"lat": 40.715550, "lng":-73.953360}
+
+  }
+]
