@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper} from 'google-maps-react';
 
-const MAP_Key = "AIzaSyA4VBEGSFyW6fd16XxYD_buASl7pUZzaFw";
+const MAP_KEY = "AIzaSyA4VBEGSFyW6fd16XxYD_buASl7pUZzaFw";
 
 class DisplayMap extends Component {
   state = {
@@ -19,12 +19,20 @@ class DisplayMap extends Component {
 
   render = () =>{
 
-  }
+    const style = {
+      width: '100%',
+      height: '100%'
+    }
+
+    const center = {
+      lat: this.props.lat,
+      lng: this.props.lon
+    }
 
   return (
       <Map
-        role='application'
-        aria-label='map'
+        role="application"
+        aria-label="map"
         onReady={this.mapReady}
         google={this.props.google}
         zoom={this.props.zoom}
@@ -35,4 +43,4 @@ class DisplayMap extends Component {
   }
 }
 
-export default GoogleApiWrapper({apiKey: MAP_KEY})(MapDisplay)
+export default GoogleApiWrapper({apiKey: MAP_KEY})(DisplayMap)
