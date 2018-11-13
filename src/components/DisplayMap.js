@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {Map, GoogleApiWrapper} from 'google-maps-react';
 
 const MAP_KEY = "AIzaSyA4VBEGSFyW6fd16XxYD_buASl7pUZzaFw";
+const CLIENT_FS = "OUCOLRA5EZGI34CYBNRCZHRPD0DA5VVRJOAJNCWGLTGON0LO";
+const SECRET_FS = "HWPXULN0VH34HOK40IJFT1YE0HGYCFWMMCBMM4IPFQAD2OJZ";
+const FS_VERSION = "20180323";
 
 class DisplayMap extends Component {
   state = {
@@ -20,12 +23,18 @@ class DisplayMap extends Component {
   mapReady = (props, map) =>{
     //Save the reference of the map in the state for location markers
     this.setState({map});
+    this.updatePoints(this.props.locations);
   }
 
   shutInfoWindow = () =>{
     this.state.activePoint &&
     this.state.activePoint.setAnimation(null);
     this.setState({showingInfoWindow: false, activePoint: null, activePointProps: null});
+  }
+
+  getCompanyInfo = (props, data) => {
+    //comparing stored data to FS data
+    return data.response.venues.filter(item => item.name.includes(props.name) || props.name.includes(item.name));
   }
 
   onPointClick = (props, point, e ) => {
