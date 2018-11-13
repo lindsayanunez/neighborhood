@@ -6,10 +6,10 @@ const MAP_KEY = "AIzaSyA4VBEGSFyW6fd16XxYD_buASl7pUZzaFw";
 class DisplayMap extends Component {
   state = {
     map: null,
-    markers: [],
-    markerProps: [],
-    activeMarker: null,
-    activeMarkerProps: null;
+    points: [],
+    pointProps: [],
+    activePoints: null,
+    activePointProps: null;
     showingInfoWindow: false
   };
 
@@ -22,18 +22,18 @@ class DisplayMap extends Component {
     this.setState({map});
   }
 
-  updateMarkers = (locations) => {
+  updatePoints = (locations) => {
     //check to see if there are locations
     if(!location)
       return;
     //Remove existing markers
-    this.state.markers.forEach(marker => marker.setMap(null ));
+    this.state.points.forEach(point => point.setMap(null ));
 
     //Create parallel references between the markers and the location props
     //Add markers to the map
 
-    let markerProps = [];
-    let markers = locations.map((location, index) => {
+    let pointProps = [];
+    let points = locations.map((location, index) => {
       let mProps = {
         key: index,
         index,
@@ -41,8 +41,20 @@ class DisplayMap extends Component {
         position: location.pos,
         url: location.url.
       };
+      pointProps.push(mProps);
 
+      let dropEffect = this.props.google.maps.Animation.Drop;
+      let point =new this.props.google.maps.Point({
+        position: location.pos,
+        map: this.state.map,
+        dropEffect
+      });
+      point.addListener('click', () => {
+        this.onPointClick(mProp, point, null);
+      });
+      return point;
     })
+    this.setState({points, pointProps});
   }
 
   render = () =>{
