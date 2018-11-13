@@ -28,8 +28,12 @@ class DisplayMap extends Component {
     this.setState({showingInfoWindow: false, activePoint: null, activePointProps: null});
   }
 
-  onPointClick = ( ) => {
+  onPointClick = (props, point, e ) => {
+    //close the open info windows
+    this.showingInfoWindow();
 
+    //Set the state to show the marker info
+    this.setState({showingInfoWindow: true, activePoint: point, activePointProps: props});
   }
 
   updatePoints = (locations) => {
@@ -79,7 +83,7 @@ class DisplayMap extends Component {
       lng: this.props.lon
     }
 
-
+let apProps = this.state.activePointProps;
 
   return (
       <Map
@@ -90,7 +94,19 @@ class DisplayMap extends Component {
         zoom={this.props.zoom}
         style={style}
         initialCenter={center}
-        onClick={this.closeInfoWindow}></Map>
+        onClick={this.shutInfoWindow}>
+        <InfoWindow
+          point={this.state.activePoint}
+          visible = {this.state.showingInfoWindow}
+          onShut={this.shutInfoWindow}>
+          <div>
+            <h3>{apProps && apProps.name}</h3>
+            {apProps && apProps.url ? (
+              <a href={apProps.url}>Visit website</a>
+              ): ""}
+          </div>
+        </InfoWindow>
+      </Map>
     )
   }
 }
