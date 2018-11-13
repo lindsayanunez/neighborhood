@@ -5,7 +5,12 @@ const MAP_KEY = "AIzaSyA4VBEGSFyW6fd16XxYD_buASl7pUZzaFw";
 
 class DisplayMap extends Component {
   state = {
-    map: null
+    map: null,
+    markers: [],
+    markerProps: [],
+    activeMarker: null,
+    activeMarkerProps: null;
+    showingInfoWindow: false
   };
 
   componentDidMount = () =>{
