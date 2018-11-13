@@ -22,6 +22,16 @@ class DisplayMap extends Component {
     this.setState({map});
   }
 
+  shutInfoWindow = () =>{
+    this.state.activePoint &&
+    this.state.activePoint.setAnimation(null);
+    this.setState({showingInfoWindow: false, activePoint: null, activePointProps: null});
+  }
+
+  onPointClick = ( ) => {
+
+  }
+
   updatePoints = (locations) => {
     //check to see if there are locations
     if(!location)
