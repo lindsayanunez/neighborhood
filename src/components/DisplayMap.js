@@ -22,6 +22,29 @@ class DisplayMap extends Component {
     this.setState({map});
   }
 
+  updateMarkers = (locations) => {
+    //check to see if there are locations
+    if(!location)
+      return;
+    //Remove existing markers
+    this.state.markers.forEach(marker => marker.setMap(null ));
+
+    //Create parallel references between the markers and the location props
+    //Add markers to the map
+
+    let markerProps = [];
+    let markers = locations.map((location, index) => {
+      let mProps = {
+        key: index,
+        index,
+        name: location.name,
+        position: location.pos,
+        url: location.url.
+      };
+
+    })
+  }
+
   render = () =>{
 
     const style = {
@@ -33,6 +56,8 @@ class DisplayMap extends Component {
       lat: this.props.lat,
       lng: this.props.lon
     }
+
+
 
   return (
       <Map
