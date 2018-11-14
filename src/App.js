@@ -31,11 +31,26 @@ class App extends Component {
     }
   };
 
+componentDidMount = () => {
+  this.setState({
+    ...this.state,
+    filtered: this.filterLocations(this.state.all, "")
+  });
+}
+
   toggleDrawer = () => {
     //change state to show if drawer is open or not
     this.setState({
       open: !this.state.open
     });
+  }
+
+  updateQuery = () => {
+
+  }
+
+  filterLocations = (location, query) => {
+    return locations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
   }
 
   render = () => {
