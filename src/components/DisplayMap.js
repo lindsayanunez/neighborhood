@@ -39,10 +39,50 @@ class DisplayMap extends Component {
 
   onPointClick = (props, point, e ) => {
     //close the open info windows
-    this.showingInfoWindow();
+    this.shutInfoWindow();
 
-    //Set the state to show the marker info
-    this.setState({showingInfoWindow: true, activePoint: point, activePointProps: props});
+    //Fetch the Foursquare Data
+    let url = "https://api.foursquare.com/v2/venues/search?client_id=${CLIENT_FS}&client_secret=${SECRET_FS}&v=${FS_VERSION}&radius=100&ll=${props.position.lat},${props.position.lng}&llAcc=100";
+    let headers = new Headers();
+    let request = new Request(url, {
+      method: 'GET';
+      header
+    });
+
+    //Make points for the active marker
+    let activePointProps;
+    fetch(request)
+      .then(response => response.json())
+      .then(result => {
+        //Retrieve business reference for the restaurant in FS
+
+        let restaurant = this.getCompanyInfo(props, result);
+        activePointProps = {
+          ..props,
+          foursquare: restaurant[0]
+        };
+        //If there is FS data, get the picture
+        //else complete setting state
+        if(activePointProps.foursquare){
+          let url = 'https://api.foursquare.com/v2/venues/${restaurant[0].id}/photos?client_id=${CLIENT_FS}&client_secret=${SECRET_FS}&v=${FS_VERSION}`';
+          fetch(url)
+            .then(response =>response.json())
+            .then(result => {
+              activePointProps = {
+                ...activePointProps,
+                images: result.response.photos
+              };
+              if(this.state.activePoint)
+                this.state.activePoint.setAnimation(null);
+              point.setAnimation(this.props.google.maps.Animation.BOUNCE);
+              this.setState({showingInfoWindow: true, activePoint: point, activePointProps});
+            })
+        }else{
+          //Set the state to show the marker info
+          marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+          this.setState({showingInfoWindow: true, activePoint: point, activePointProps: props});
+        }
+      })
   }
 
   updatePoints = (locations) => {
