@@ -13,6 +13,24 @@ class App extends Component {
     open: false
   }
 
+  styles = {
+    menuButton:{
+      background: 'white',
+      position: 'absolute',
+        left: 10,
+        top: 20,
+      padding: 10,
+      marginLeft: 10,
+      marginRight: 20
+    },
+    hide: {
+      display: 'none'
+    },
+    header:{
+      marginTop: '0px'
+    }
+  };
+
   toggleDrawer = () => {
     //change state to show if drawer is open or not
     this.setState({
