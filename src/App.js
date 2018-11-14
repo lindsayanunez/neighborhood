@@ -45,8 +45,13 @@ componentDidMount = () => {
     });
   }
 
-  updateQuery = () => {
-
+  updateQuery = (query) => {
+    //update and then filter the query value
+    this.setState({
+      ...this.state,
+      selectedIndex: null,
+      filtered: this.filterLocations(this.state.all, query)
+    });
   }
 
   filterLocations = (location, query) => {
