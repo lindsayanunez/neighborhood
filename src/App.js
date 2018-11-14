@@ -58,6 +58,11 @@ componentDidMount = () => {
     return locations.filter(location => location.name.toLowerCase().includes(query.toLowerCase()));
   }
 
+  clickListItem = (index) => {
+    //set state with new array of selected locations
+    this.setState({ selectedIndex: index, open: !this.state.open})
+  }
+
   render = () => {
     return (
       <div className="App">
@@ -71,11 +76,15 @@ componentDidMount = () => {
           lat={this.state.lat}
           lon={this.state.lon}
           zoom={this.state.zoom}
-          locations={this.state.all}/>
-        <ListDrawer
           locations={this.state.all}
+          selectedIndex={this.state.selectedIndex}
+          clickListItem={this.clickListItem}/>
+        <ListDrawer
+          locations={this.state.filtered}
           open={this.state.open}
-          toggleDrawer={this.toggleDrawer}/>
+          toggleDrawer={this.toggleDrawer}
+          filterLocations={this.updateQuery}
+          clickListItem={this.clickListItem}/>
       </div>
     );
   }
