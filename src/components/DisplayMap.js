@@ -97,23 +97,23 @@ class DisplayMap extends Component {
 
     let pointProps = [];
     let points = locations.map((location, index) => {
-      let mProps = {
+      let pProps = {
         key: index,
         index,
         name: location.name,
         position: location.pos,
         url: location.url.
       };
-      pointProps.push(mProps);
+      pointProps.push(pProps);
 
-      let dropEffect = this.props.google.maps.Animation.Drop;
+      let dropEffect = this.state.firstDrop ? this.props.google.maps.Animation.Drop : null;
       let point =new this.props.google.maps.Point({
         position: location.pos,
         map: this.state.map,
         dropEffect
       });
       point.addListener('click', () => {
-        this.onPointClick(mProp, point, null);
+        this.onPointClick(pProps, point, null);
       });
       return point;
     })
@@ -153,6 +153,16 @@ let apProps = this.state.activePointProps;
             {apProps && apProps.url ? (
               <a href={apProps.url}>Visit website</a>
               ): ""}
+            {apProps && apProps.images ? (
+                <div>
+                  <images
+                  alt= {"Food Picture from " + apProps.name}
+                  scr= {apProps.images.items[0].prefix + "100x100" + apProps.imges.items[0]}.suffix>
+                  <p>Fourquare Image</p>
+                </div>
+              )
+              : ""
+          }
           </div>
         </InfoWindow>
       </Map>
