@@ -5,6 +5,22 @@ class NoDisplayMap extends Component {
 
   }
 
+  //After the components have mounted, set the timeout
+  componentDidMount = () => {
+    let timeout = window.setTimeout(this.displayMessage, 1000);
+    this.setState({timeout});
+  }
+
+  //before componenets mount clear the timeout
+  componenetWillMount = () => {
+    window.clearTimeout(this.state.timeout);
+  }
+
+  //changes state for message display
+  displayMessage = () => {
+    this.setState({show:true});
+  }
+
   render = () => {
     return (
 
