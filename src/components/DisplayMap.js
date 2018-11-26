@@ -20,6 +20,34 @@ class DisplayMap extends Component {
 
   }
 
+  componentWillRecieveProps = () => {
+    this.setState({firstDrop: false});
+
+    //Update the markers when the filtering of locations changes
+    if(this.state.points.length !== props.locations.length){
+      this.shutInfoWindow();
+      this.updatePoints();
+      this.setState({activePoint: null});
+
+      return;
+    }
+
+    //Close window if the clicked marker is not for the open info window
+    if(!props.selectedIndex || (this.state.activePoint &&
+      (this.state.markers[props.selectedIndex] !== this.state.activePoint))){
+      this.closeInfoWindow();
+    }
+
+    //Check for a selected index
+    if (props.selectedIndex === null || typeof(props.selectedIndex) === "undefined"){
+      return;
+    };
+
+    //Marker acts as clicked
+    this.onPointClick(this.state.pointProps[props.selectedIndex], this.state.markers[props.selectedIndex]);
+
+  }
+
   mapReady = (props, map) =>{
     //Save the reference of the map in the state for location markers
     this.setState({map});
