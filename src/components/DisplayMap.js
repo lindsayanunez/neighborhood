@@ -198,4 +198,4 @@ let apProps = this.state.activePointProps;
   }
 }
 
-export default GoogleApiWrapper({apiKey: MAP_KEY})(DisplayMap)
+export default GoogleApiWrapper({apiKey: MAP_KEY LoadingContainer: NoDisplayMap})(DisplayMap)
