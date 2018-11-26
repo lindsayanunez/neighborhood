@@ -23,7 +23,17 @@ class NoDisplayMap extends Component {
 
   render = () => {
     return (
-
+        <div>
+        {this.state.show ? (
+          <div>
+            <h1>Map Loading Error<h1>
+            <h2>This map will not load due to network error.</h2>
+            <p>Please, connect to the internet and try again.</p>
+          </div>
+          ) : (<div>
+            <h1>Loading...</h1>
+          </div>)}
+        </div>
       )
   }
 }
