@@ -10,13 +10,13 @@
 
   },
     {
-    "name" : "",
-    "street":"",
+    "name" : "Smiling Pizzeria",
+    "street":"323 7th Ave",
     "city": "Brooklyn",
     "state": "NY",
-    "zip": "",
-    "url": "",
-    "pos": {"lat": , "lng":}
+    "zip": "11215",
+    "url": "No Website",
+    "pos": {"lat":40.668710 , "lng":-73.980060}
 
   },
     {
