@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Map, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
+import {Map, InfoWindow, GoogleApiWrapper} from 'google-map-react';
 import NoDisplayMap from './NoDisplayMap';
 
 const MAP_KEY = "AIzaSyA4VBEGSFyW6fd16XxYD_buASl7pUZzaFw";
