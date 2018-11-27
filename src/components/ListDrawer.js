@@ -33,14 +33,13 @@ class ListDrawer extends Component {
       margin: "30px 0px 10px",
       width: "100%"
     }
-  }
 };
 
 updateQuery = (newQuery) => {
   //save query in state and pass up
   this.setState({query: newQuery});
   this.props.filterLocations(newQuery);
-}
+};
 
 render = () => {
   return (

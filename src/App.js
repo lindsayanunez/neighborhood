@@ -67,8 +67,8 @@ componentDidMount = () => {
     return (
       <div className="App">
       <div>
-        <button onClick={this.toggleDrawer} style={this.styles.menuButton>
-          <i className="fa fa-bars">
+        <button onClick={this.toggleDrawer} style={this.styles.menuButton}>
+          <i className="fa fa-bars"></i>
         </button>
         <h1>'Best Pizza in Brooklyn'</h1>
       </div>

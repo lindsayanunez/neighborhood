@@ -12,7 +12,7 @@ class DisplayMap extends Component {
     points: [],
     pointProps: [],
     activePoints: null,
-    activePointProps: null;
+    activePointProps: null,
     showingInfoWindow: false
   };
 
@@ -73,7 +73,7 @@ class DisplayMap extends Component {
     let url = "https://api.foursquare.com/v2/venues/search?client_id=${CLIENT_FS}&client_secret=${SECRET_FS}&v=${FS_VERSION}&radius=100&ll=${props.position.lat},${props.position.lng}&llAcc=100";
     let headers = new Headers();
     let request = new Request(url, {
-      method: 'GET';
+      method: 'GET',
       header
     });
 
@@ -86,7 +86,7 @@ class DisplayMap extends Component {
 
         let restaurant = this.getCompanyInfo(props, result);
         activePointProps = {
-          ..props,
+          ...props,
           foursquare: restaurant[0]
         };
         //If there is FS data, get the picture
@@ -130,7 +130,7 @@ class DisplayMap extends Component {
         index,
         name: location.name,
         position: location.pos,
-        url: location.url.
+        url: location.url
       };
       pointProps.push(pProps);
 
@@ -185,8 +185,8 @@ let apProps = this.state.activePointProps;
                 <div>
                   <images
                   alt= {"Food Picture from " + apProps.name}
-                  scr= {apProps.images.items[0].prefix + "100x100" + apProps.imges.items[0]}.suffix>
-                  <p>Fourquare Image</p>
+                  scr= {apProps.images.items[0].prefix + "100x100" + apProps.images.items[0].suffix}></images>
+                  <p>Fourquare Photograph</p>
                 </div>
               )
               : ""
@@ -198,4 +198,4 @@ let apProps = this.state.activePointProps;
   }
 }
 
-export default GoogleApiWrapper({apiKey: MAP_KEY LoadingContainer: NoDisplayMap})(DisplayMap)
+export default GoogleApiWrapper({apiKey: MAP_KEY, LoadingContainer: NoDisplayMap})(DisplayMap)
