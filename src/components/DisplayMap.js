@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Map, GoogleApiWrapper} from 'google-maps-react';
+import {Map, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
+import NoDisplayMap from './NoDisplayMap';
 
 const MAP_KEY = "AIzaSyA4VBEGSFyW6fd16XxYD_buASl7pUZzaFw";
 const CLIENT_FS = "OUCOLRA5EZGI34CYBNRCZHRPD0DA5VVRJOAJNCWGLTGON0LO";
@@ -20,7 +21,7 @@ class DisplayMap extends Component {
 
   }
 
-  componentWillRecieveProps = () => {
+  componentWillRecieveProps = (props) => {
     this.setState({firstDrop: false});
 
     //Update the markers when the filtering of locations changes
