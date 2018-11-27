@@ -75,7 +75,7 @@ class DisplayMap extends Component {
     let headers = new Headers();
     let request = new Request(url, {
       method: 'GET',
-      header
+      headers
     });
 
     //Make points for the active marker
@@ -108,7 +108,7 @@ class DisplayMap extends Component {
             })
         }else{
           //Set the state to show the marker info
-          marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+          point.setAnimation(this.props.google.maps.Animation.BOUNCE);
           this.setState({showingInfoWindow: true, activePoint: point, activePointProps: props});
         }
       })
@@ -116,7 +116,7 @@ class DisplayMap extends Component {
 
   updatePoints = (locations) => {
     //check to see if there are locations
-    if(!location)
+    if(!locations)
       return;
     //Remove existing markers
     this.state.points.forEach(point => point.setMap(null ));
