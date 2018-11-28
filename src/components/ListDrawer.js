@@ -52,8 +52,7 @@ class ListDrawer extends Component {
               placeholder="Search List"
               name="filter"
               onChange={e => this.updateQuery(e.target.value)}
-              value={this.state.query}
-            />
+              value={this.state.query}/>
             <ul style={this.styles.noBullets}>
               {this.props.locations &&
                 this.props.locations.map((location, index) => {

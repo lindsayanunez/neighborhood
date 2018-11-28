@@ -10,11 +10,12 @@ const FS_VERSION = "20180323";
 class DisplayMap extends Component {
   state = {
     map: null,
-    points: [],
-    pointProps: [],
-    activePoints: null,
-    activePointProps: null,
-    showingInfoWindow: false
+    markers: [],
+    markerProps: [],
+    activeMarkers: null,
+    activeMarkerProps: null,
+    showingInfoWindow: false,
+    firstDrop: true,
   };
 
   componentDidMount = () => {};
@@ -23,10 +24,10 @@ class DisplayMap extends Component {
     this.setState({ firstDrop: false });
 
     //Update the markers when the filtering of locations changes
-    if (this.state.points.length !== props.locations.length) {
+    if (this.state.markerss.length !== props.locations.length) {
       this.shutInfoWindow();
-      this.updatePoints();
-      this.setState({ activePoint: null });
+      this.updateMarkers(props.locations);
+      this.setState({ activeMarker: null });
 
       return;
     }
@@ -34,10 +35,10 @@ class DisplayMap extends Component {
     //Close window if the clicked marker is not for the open info window
     if (
       !props.selectedIndex ||
-      (this.state.activePoint &&
-        this.state.markers[props.selectedIndex] !== this.state.activePoint)
+      (this.state.activeMarker &&
+        this.state.markers[props.selectedIndex] !== this.state.activeMarker)
     ) {
-      this.closeInfoWindow();
+      this.shutInfoWindow();
     }
 
     //Check for a selected index
@@ -49,8 +50,8 @@ class DisplayMap extends Component {
     }
 
     //Marker acts as clicked
-    this.onPointClick(
-      this.state.pointProps[props.selectedIndex],
+    this.onMarkerClick(
+      this.state.markerProps[props.selectedIndex],
       this.state.markers[props.selectedIndex]
     );
   };
@@ -58,15 +59,15 @@ class DisplayMap extends Component {
   mapReady = (props, map) => {
     //Save the reference of the map in the state for location markers
     this.setState({ map });
-    this.updatePoints(this.props.locations);
+    this.updateMarkers(this.props.locations);
   };
 
   shutInfoWindow = () => {
-    this.state.activePoint && this.state.activePoint.setAnimation(null);
+    this.state.activeMarker && this.state.activeMarker.setAnimation(null);
     this.setState({
       showingInfoWindow: false,
-      activePoint: null,
-      activePointProps: null
+      activeMarker: null,
+      activeMarkerProps: null
     });
   };
 
@@ -77,7 +78,7 @@ class DisplayMap extends Component {
     );
   };
 
-  onPointClick = (props, point, e) => {
+  onMarkerClick = (props, marker, e) => {
     //close the open info windows
     this.shutInfoWindow();
 
@@ -91,63 +92,63 @@ class DisplayMap extends Component {
       headers
     });
 
-    //Make points for the active marker
-    let activePointProps;
+    //Make markers for the active marker
+    let activeMarkerProps;
     fetch(request)
       .then(response => response.json())
       .then(result => {
         //Retrieve business reference for the restaurant in FS
 
         let restaurant = this.getCompanyInfo(props, result);
-        activePointProps = {
+        activeMarkerProps = {
           ...props,
           foursquare: restaurant[0]
         };
         //If there is FS data, get the picture
         //else complete setting state
-        if (activePointProps.foursquare) {
+        if (activeMarkerProps.foursquare) {
           let url = `https://api.foursquare.com/v2/venues/${
             restaurant[0].id
           }/photos?client_id=${CLIENT_FS}&client_secret=${SECRET_FS}&v=${FS_VERSION}`;
           fetch(url)
             .then(response => response.json())
             .then(result => {
-              activePointProps = {
-                ...activePointProps,
+              activeMarkerProps = {
+                ...activeMarkerProps,
                 images: result.response.photos
               };
-              if (this.state.activePoint)
-                this.state.activePoint.setAnimation(null);
-              point.setAnimation(this.props.google.maps.Animation.BOUNCE);
+              if (this.state.activeMarker)
+                this.state.activeMarker.setAnimation(null);
+              marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
               this.setState({
                 showingInfoWindow: true,
-                activePoint: point,
-                activePointProps
+                activeMarker: marker,
+                activeMarkerProps
               });
             });
         } else {
           //Set the state to show the marker info
-          point.setAnimation(this.props.google.maps.Animation.BOUNCE);
+          marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
           this.setState({
             showingInfoWindow: true,
-            activePoint: point,
-            activePointProps: props
+            activeMarker: marker,
+            activeMarkerProps: props
           });
         }
       });
   };
 
-  updatePoints = locations => {
+  updateMarkers = locations => {
     //check to see if there are locations
     if (!locations) return;
     //Remove existing markers
-    this.state.points.forEach(point => point.setMap(null));
+    this.state.markers.forEach(marker => marker.setMap(null));
 
     //Create parallel references between the markers and the location props
     //Add markers to the map
 
-    let pointProps = [];
-    let points = locations.map((location, index) => {
+    let markerProps = [];
+    let markers = locations.map((location, index) => {
       let pProps = {
         key: index,
         index,
@@ -155,22 +156,22 @@ class DisplayMap extends Component {
         position: location.pos,
         url: location.url
       };
-      pointProps.push(pProps);
+      markerProps.push(pProps);
       console.log(this.props.google.maps);
       let dropEffect = this.state.firstDrop
         ? this.props.google.maps.Animation.Drop
         : null;
-      let point = new this.props.google.maps.Marker({
+      let marker = new this.props.google.maps.Marker({
         position: location.pos,
         map: this.state.map,
         dropEffect
       });
-      point.addListener("click", () => {
-        this.onPointClick(pProps, point, null);
+      marker.addListener("click", () => {
+        this.onMarkerClick(pProps, marker, null);
       });
-      return point;
+      return marker;
     });
-    this.setState({ points, pointProps });
+    this.setState({ markers, markerProps });
   };
 
   render = () => {
@@ -184,7 +185,7 @@ class DisplayMap extends Component {
       lng: this.props.lon
     };
 
-    let apProps = this.state.activePointProps;
+    let apProps = this.state.activeMarkerProps;
 
     return (
       <Map
@@ -197,7 +198,7 @@ class DisplayMap extends Component {
         initialCenter={center}
         onClick={this.shutInfoWindow}>
         <InfoWindow
-          point={this.state.activePoint}
+          marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onShut={this.shutInfoWindow}>
           <div>
