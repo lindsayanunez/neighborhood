@@ -8,9 +8,10 @@ class App extends Component {
   state = {
     lat: 40.6782,
     lon: -73.9442,
-    zoom: 15,
+    zoom: 13,
     all: locations,
-    open: false
+    open: false,
+    selectedIndex: null
   }
 
   styles = {
@@ -66,7 +67,7 @@ componentDidMount = () => {
   render = () => {
     return (
       <div className="App">
-      <div>
+      <div style={this.styles.header}>
         <button onClick={this.toggleDrawer} style={this.styles.menuButton}>
           <i className="fa fa-bars"></i>
         </button>
