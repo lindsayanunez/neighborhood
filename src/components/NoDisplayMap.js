@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 class NoDisplayMap extends Component {
   state = {
-    show: false
+    show: false,
+    timeout: null
   };
   //After the components have mounted, set the timeout
   componentDidMount = () => {

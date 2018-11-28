@@ -71,13 +71,13 @@ componentDidMount = () => {
         <button onClick={this.toggleDrawer} style={this.styles.menuButton}>
           <i className="fa fa-bars"></i>
         </button>
-        <h1>'Best Pizza in Brooklyn'</h1>
+        <h1>Best Pizza in Brooklyn</h1>
       </div>
         <DisplayMap
           lat={this.state.lat}
           lon={this.state.lon}
           zoom={this.state.zoom}
-          locations={this.state.all}
+          locations={this.state.filtered}
           selectedIndex={this.state.selectedIndex}
           clickListItem={this.clickListItem}/>
         <ListDrawer

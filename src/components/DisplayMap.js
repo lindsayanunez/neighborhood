@@ -218,8 +218,7 @@ class DisplayMap extends Component {
                     apProps.images.items[0].prefix +
                     "100x100" +
                     apProps.images.items[0].suffix
-                  }
-                />
+                  }/>
                 <p>Fourquare Photograph</p>
               </div>
             ) : (
