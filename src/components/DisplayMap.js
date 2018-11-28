@@ -62,83 +62,7 @@ class DisplayMap extends Component {
     this.updateMarkers(this.props.locations);
   };
 
-  shutInfoWindow = () => {
-    this.state.activeMarker && this.state.activeMarker.setAnimation(null);
-    this.setState({
-      showingInfoWindow: false,
-      activeMarker: null,
-      activeMarkerProps: null
-    });
-  };
-
-  getCompanyInfo = (props, data) => {
-    //comparing stored data to FS data
-    return data.response.venues.filter(
-      item => item.name.includes(props.name) || props.name.includes(item.name)
-    );
-  };
-
-  onMarkerClick = (props, marker, e) => {
-    //close the open info windows
-    this.shutInfoWindow();
-
-    //Fetch the Foursquare Data
-    let url = `https://api.foursquare.com/v2/venues/search?client_id=${CLIENT_FS}&client_secret=${SECRET_FS}&v=${FS_VERSION}&radius=100&ll=${
-      props.position.lat
-    },${props.position.lng}&llAcc=100`;
-    let headers = new Headers();
-    let request = new Request(url, {
-      method: "GET",
-      headers
-    });
-
-    //Make markers for the active marker
-    let activeMarkerProps;
-    fetch(request)
-      .then(response => response.json())
-      .then(result => {
-        //Retrieve business reference for the restaurant in FS
-
-        let restaurant = this.getCompanyInfo(props, result);
-        activeMarkerProps = {
-          ...props,
-          foursquare: restaurant[0]
-        };
-        //If there is FS data, get the picture
-        //else complete setting state
-        if (activeMarkerProps.foursquare) {
-          let url = `https://api.foursquare.com/v2/venues/${
-            restaurant[0].id
-          }/photos?client_id=${CLIENT_FS}&client_secret=${SECRET_FS}&v=${FS_VERSION}`;
-          fetch(url)
-            .then(response => response.json())
-            .then(result => {
-              activeMarkerProps = {
-                ...activeMarkerProps,
-                images: result.response.photos
-              };
-              if (this.state.activeMarker)
-                this.state.activeMarker.setAnimation(null);
-              marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
-              this.setState({
-                showingInfoWindow: true,
-                activeMarker: marker,
-                activeMarkerProps
-              });
-            });
-        } else {
-          //Set the state to show the marker info
-          marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
-          this.setState({
-            showingInfoWindow: true,
-            activeMarker: marker,
-            activeMarkerProps: props
-          });
-        }
-      });
-  };
-
-  updateMarkers = locations => {
+    updateMarkers = locations => {
     //check to see if there are locations
     if (!locations) return;
     //Remove existing markers
@@ -174,6 +98,84 @@ class DisplayMap extends Component {
     this.setState({ markers, markerProps });
   };
 
+
+
+
+
+  onMarkerClick = (props, marker, e) => {
+    //close the open info windows
+    this.shutInfoWindow();
+
+    //Fetch the Foursquare Data
+    let url = `https://api.foursquare.com/v2/venues/search?client_id=${CLIENT_FS}&client_secret=${SECRET_FS}&v=${FS_VERSION}&radius=100&ll=${props.position.lat},${props.position.lng}&llAcc=100`;
+    let headers = new Headers();
+    let request = new Request(url, {
+      method: "GET",
+      headers
+    });
+
+    //Make markers for the active marker
+    let activeMarkerProps;
+    fetch(request)
+      .then(response => response.json())
+      .then(result => {
+        //Retrieve business reference for the restaurant in FS
+
+        let restaurant = this.getCompanyInfo(props, result);
+        activeMarkerProps = {
+          ...props,
+          foursquare: restaurant[0]
+        };
+        //If there is FS data, get the picture
+        //else complete setting state
+        if (activeMarkerProps.foursquare) {
+          let url = `https://api.foursquare.com/v2/venues/${
+            restaurant[0].id}/photos?client_id=${CLIENT_FS}&client_secret=${SECRET_FS}&v=${FS_VERSION}`;
+          fetch(url)
+            .then(response => response.json())
+            .then(result => {
+              activeMarkerProps = {
+                ...activeMarkerProps,
+                images: result.response.photos
+              };
+              if (this.state.activeMarker)
+                this.state.activeMarker.setAnimation(null);
+              marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+              this.setState({
+                showingInfoWindow: true,
+                activeMarker: marker,
+                activeMarkerProps
+              });
+            });
+        } else {
+          //Set the state to show the marker info
+          marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+          this.setState({
+            showingInfoWindow: true,
+            activeMarker: marker,
+            activeMarkerProps: props
+          });
+        }
+      });
+  };
+
+  getCompanyInfo = (props, data) => {
+    //comparing stored data to FS data
+    return data.response.venues.filter(
+      item => item.name.includes(props.name) || props.name.includes(item.name)
+    );
+  };
+
+  shutInfoWindow = () => {
+    this.state.activeMarker && this.state.activeMarker.setAnimation(null);
+    this.setState({
+      showingInfoWindow: false,
+      activeMarker: null,
+      activeMarkerProps: null
+    });
+  };
+
+
   render = () => {
     const style = {
       width: "100%",
@@ -200,7 +202,7 @@ class DisplayMap extends Component {
         <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
-          onShut={this.shutInfoWindow}>
+          onClose={this.shutInfoWindow}>
           <div>
             <h3>{apProps && apProps.name}</h3>
             {apProps && apProps.url ? (
@@ -210,7 +212,7 @@ class DisplayMap extends Component {
             )}
             {apProps && apProps.images ? (
               <div>
-                <images
+                <img
                   alt={"Food Picture from " + apProps.name}
                   scr={
                     apProps.images.items[0].prefix +
