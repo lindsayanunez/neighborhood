@@ -20,11 +20,11 @@ class DisplayMap extends Component {
 
   componentDidMount = () => {};
 
-  componentWillRecieveProps = props => {
+  componentWillReceiveProps = props => {
     this.setState({ firstDrop: false });
 
     //Update the markers when the filtering of locations changes
-    if (this.state.markerss.length !== props.locations.length) {
+    if (this.state.markers.length !== props.locations.length) {
       this.shutInfoWindow();
       this.updateMarkers(props.locations);
       this.setState({ activeMarker: null });
