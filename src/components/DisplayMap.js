@@ -235,3 +235,6 @@ export default GoogleApiWrapper({
   apiKey: MAP_KEY,
   LoadingContainer: NoDisplayMap
 })(DisplayMap);
+
+// Resources
+// Doug Brown's Tutorial - https://youtu.be/NVAVLCJwAAo

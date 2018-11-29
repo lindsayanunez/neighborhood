@@ -76,3 +76,7 @@ class ListDrawer extends Component {
 }
 
 export default ListDrawer;
+
+// Resources
+// Doug Brown's Tutorial - https://youtu.be/NVAVLCJwAAo
+

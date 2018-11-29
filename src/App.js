@@ -92,3 +92,7 @@ componentDidMount = () => {
 }
 
 export default App;
+
+//Resources
+// Doug Brown's Tutorial - https://youtu.be/NVAVLCJwAAo
+
