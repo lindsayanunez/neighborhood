@@ -3,7 +3,10 @@
 ### React - Neighborhood Map
 
 ## Description
-This is a React app that allows users to organize and track their books by 'Currently Reading', 'Want to Read' and 'Read'. You can also search through a library of books.
+This is a React app that uses Google Maps and Foursquare to feature some of my favorite pizza places in Brooklyn.
+
+Additional data provided by Foursquare API.
+Map provided by Google Maps.
 
 #### Note: starter code was provided. See commits for my work.
 
