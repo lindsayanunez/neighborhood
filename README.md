@@ -8,8 +8,6 @@ This is a React app that uses Google Maps and Foursquare to feature some of my f
 Additional data provided by Foursquare API.
 Map provided by Google Maps.
 
-#### Note: starter code was provided. See commits for my work.
-
 
 ## How to Launch the App
 Download or clone this repo to your machine
