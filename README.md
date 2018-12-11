@@ -5,7 +5,7 @@
 ## Description
 This is a React app that allows users to organize and track their books by 'Currently Reading', 'Want to Read' and 'Read'. You can also search through a library of books.
 
-####Note: starter code was provided. See commits for my work_
+#### Note: starter code was provided. See commits for my work.
 
 
 ## How to Launch the App
